@@ -69,6 +69,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public boolean isBookingPaid(Long bookingId) {
-        return !paymentRepository.findByBookingId(bookingId).isEmpty();
+        return !paymentRepository.findByBooking_Id(bookingId).isEmpty();
     }
 }
