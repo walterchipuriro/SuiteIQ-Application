@@ -42,5 +42,28 @@ public class BookingController {
             bookingService.deleteBooking(id);
             return ResponseEntity.noContent().build();
         }
+
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<Booking> cancelBooking(@PathVariable Long id) {
+        return bookingService.cancelBooking(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
+    @PatchMapping("/{id}/confirm")
+    public ResponseEntity<Booking> confirmBooking(@PathVariable Long id) {
+        return bookingService.confirmBooking(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    @RequestMapping(value = "/{id}/pay", method = {RequestMethod.PATCH, RequestMethod.POST})
+    public ResponseEntity<Booking> markAsPaid(@PathVariable Long id) {
+        return bookingService.markAsPaid(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+}
 

@@ -70,7 +70,12 @@ import java.util.Optional;
             bookingRepository.deleteById(id);
         }
 
-        @Override
+    @Override
+    public Optional<Booking> confirmBooking(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
         public List<Booking> getBookingsByClient(String clientName) {
             return bookingRepository.findByCustomerName(clientName);
         }
@@ -79,5 +84,21 @@ import java.util.Optional;
         public List<Booking> findByCheckInTimeBetween(LocalDateTime from, LocalDateTime to) {
             return null;
         }
+
+    @Override
+    public Optional<Booking> markAsPaid(Long id) {
+        return bookingRepository.findById(id).map(booking -> {
+            booking.setPaid(true);
+            return bookingRepository.save(booking);
+        });
     }
+
+    @Override
+    public Optional<Booking> cancelBooking(Long id) {
+        return bookingRepository.findById(id).map(booking -> {
+            booking.setCancelled(true);
+            return bookingRepository.save(booking);
+        });
+    }
+}
 
