@@ -24,6 +24,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         this.paymentRepository = paymentRepository;
     }
 
+
     @Override
     public List<Receipt> getAllReceipts() {
         return receiptRepository.findAll();

@@ -8,26 +8,31 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 public class Payment {
 
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     private BigDecimal amount;
 
+    @Setter
     private LocalDateTime paymentDate;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "worker_id")
     private Worker worker;
@@ -35,7 +40,7 @@ public class Payment {
     // Default constructor
     public Payment() {}
 
-    // Proper constructor using entity references
+    // Parameterized constructor
     public Payment(BigDecimal amount, LocalDateTime paymentDate, PaymentMethod paymentMethod, Booking booking, Worker worker) {
         this.amount = amount;
         this.paymentDate = paymentDate;
@@ -43,4 +48,5 @@ public class Payment {
         this.booking = booking;
         this.worker = worker;
     }
+
 }

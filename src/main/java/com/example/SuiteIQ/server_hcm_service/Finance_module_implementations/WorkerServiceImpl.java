@@ -35,7 +35,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public Optional<Worker> updateWorker(Long id, Worker updatedWorker) {
         return repository.findById(id).map(existing -> {
-            existing.setName(updatedWorker.getName());
+            existing.setFullName(updatedWorker.getFullName());
             existing.setRole(updatedWorker.getRole());
             // etc...
             return repository.save(existing);

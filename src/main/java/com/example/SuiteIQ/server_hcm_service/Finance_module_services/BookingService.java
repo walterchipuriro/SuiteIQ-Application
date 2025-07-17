@@ -9,6 +9,9 @@ import java.util.Optional;
 
 public interface BookingService {
         List<Booking> getAllBookings();
+        List<Booking> getBookingsByRoom(Long roomId);
+        List<Booking> getBookingsByClientName(String clientName);
+        List<Booking> getBookingsByTimeRange(LocalDateTime from, LocalDateTime to);
         Optional<Booking> getBookingById(Long id);
         Booking createBooking(Booking booking);  // e.g. select room, duration
         Optional<Booking> updateBooking(Long id, Booking booking);

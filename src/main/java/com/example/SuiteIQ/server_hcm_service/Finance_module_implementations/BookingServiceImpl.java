@@ -10,18 +10,34 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-    @Service
+@Service
     public class BookingServiceImpl implements BookingService {
 
         private final BookingRepository bookingRepository;
+    private String customerName;
 
-        public BookingServiceImpl(BookingRepository bookingRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository) {
             this.bookingRepository = bookingRepository;
         }
 
         @Override
         public List<Booking> getAllBookings() {
             return bookingRepository.findAll();
+        }
+
+        @Override
+        public List<Booking> getBookingsByRoom(Long roomId) {
+            return List.of();
+        }
+
+        @Override
+        public List<Booking> getBookingsByClientName(String clientName) {
+            return List.of();
+        }
+
+        @Override
+        public List<Booking> getBookingsByTimeRange(LocalDateTime from, LocalDateTime to) {
+            return List.of();
         }
 
         @Override
@@ -45,6 +61,9 @@ import java.util.Optional;
                 return bookingRepository.save(existing);
             });
         }
+////
+//        public void setCustomerName(String customerName) {
+//            this.customerName = customerName;};
 
         @Override
         public void deleteBooking(Long id) {

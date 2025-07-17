@@ -23,6 +23,6 @@ public class Booking {
     private String roomNumber;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
-//    private boolean paid;
+    // private boolean paid;
 
 }
