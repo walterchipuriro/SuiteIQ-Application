@@ -2,6 +2,7 @@ package com.example.SuiteIQ.server_hcm_service.Finance_module_services;
 
 import com.example.SuiteIQ.server_hcm_domain.Booking;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -33,5 +34,8 @@ public interface BookingService {
         // Optional helper methods (if needed)
         List<Booking> getBookingsByClient(String clientName);
 
-        List<Booking> findByCheckInTimeBetween(LocalDateTime from, LocalDateTime to);
+        List<Booking> findByCheckInTimeBetween(LocalDate from, LocalDateTime to);
+
 }
+
+//         Optional<Booking> findById(Long id);

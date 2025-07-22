@@ -23,11 +23,21 @@ public class Booking {
     private String roomNumber;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
-     private boolean paid;
+    private boolean paid;
 
-    @Column
-    private String BookingStatus;  // e.g. "PENDING", "CONFIRMED", "CANCELLED"
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus = BookingStatus.PENDING;
+
+    public enum BookingStatus {
+        PENDING,
+        CONFIRMED,
+        CANCELLED,
+        COMPLETED
+    }
 
     public void setCancelled(boolean b) {
+        if (b) {
+            this.bookingStatus = BookingStatus.CANCELLED;
+        }
     }
 }
