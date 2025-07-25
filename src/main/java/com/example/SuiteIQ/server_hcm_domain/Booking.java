@@ -29,9 +29,13 @@ public class Booking {
     @Column(nullable = false)
     private BookingStatus bookingStatus = BookingStatus.PENDING;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     // Enum for booking status
     public enum BookingStatus {
