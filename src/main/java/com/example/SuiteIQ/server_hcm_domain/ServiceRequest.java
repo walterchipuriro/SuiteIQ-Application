@@ -1,6 +1,5 @@
 package com.example.SuiteIQ.server_hcm_domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,9 +18,6 @@ public class ServiceRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long requestId;
 
-    private Long userId;
-    private Long roomId;
-
     private String requestType;
 
     private String description;
@@ -31,4 +27,16 @@ public class ServiceRequest {
     private String assignedTo;
 
     private LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "worker_id")
+    private Worker assignedWorker;
 }

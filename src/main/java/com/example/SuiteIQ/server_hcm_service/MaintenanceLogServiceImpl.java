@@ -31,17 +31,19 @@ public class MaintenanceLogServiceImpl implements MaintenanceLogService {
 
     @Override
     public MaintenanceLog updateLog(Long id, MaintenanceLog updatedLog) {
-        MaintenanceLog existingLog = getLogById(id);
-        if (existingLog != null) {
-            existingLog.setRoomId(updatedLog.getRoomId());
+        return logRepository.findById(id).map(existingLog -> {
+            // Set JPA relationships properly
+            existingLog.setRoom(updatedLog.getRoom());
+
+            // Set regular fields
             existingLog.setIssueDescription(updatedLog.getIssueDescription());
             existingLog.setReportedBy(updatedLog.getReportedBy());
             existingLog.setAssignedTo(updatedLog.getAssignedTo());
             existingLog.setStatus(updatedLog.getStatus());
             existingLog.setResolvedAt(updatedLog.getResolvedAt());
+
             return logRepository.save(existingLog);
-        }
-        return null;
+        }).orElse(null);
     }
 
     @Override

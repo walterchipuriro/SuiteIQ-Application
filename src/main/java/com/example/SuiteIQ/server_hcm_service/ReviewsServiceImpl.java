@@ -46,12 +46,16 @@ public class ReviewsServiceImpl implements ReviewsService {
     @Override
     public Reviews updateReview(Long id, Reviews updatedReview) {
         return repository.findById(id).map(existing -> {
-            existing.setUserId(updatedReview.getUserId());
-            existing.setRoomId(updatedReview.getRoomId());
             existing.setRating(updatedReview.getRating());
             existing.setComment(updatedReview.getComment());
             existing.setTimestamp(updatedReview.getTimestamp());
+
+            // Properly update relationships
+            existing.setUser(updatedReview.getUser());
+            existing.setRoom(updatedReview.getRoom());
+
             return repository.save(existing);
         }).orElse(null);
     }
+
 }

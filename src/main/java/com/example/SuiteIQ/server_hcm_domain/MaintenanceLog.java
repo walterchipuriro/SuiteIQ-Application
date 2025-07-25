@@ -1,4 +1,5 @@
 package com.example.SuiteIQ.server_hcm_domain;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,6 @@ public class MaintenanceLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    private Long roomId;
-
     private String issueDescription;
 
     private String reportedBy;
@@ -27,4 +26,12 @@ public class MaintenanceLog {
     private String status;
 
     private LocalDateTime resolvedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id") // This column will be auto-managed
+    private Room room;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "worker_id")
+    private Worker assignedWorker;
 }

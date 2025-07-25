@@ -35,8 +35,8 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
     @Override
     public ServiceRequest updateRequest(Long id, ServiceRequest updatedRequest) {
         return repository.findById(id).map(existing -> {
-            existing.setUserId(updatedRequest.getUserId());
-            existing.setRoomId(updatedRequest.getRoomId());
+            existing.setUser(updatedRequest.getUser());
+            existing.setRoom(updatedRequest.getRoom());
             existing.setRequestType(updatedRequest.getRequestType());
             existing.setDescription(updatedRequest.getDescription());
             existing.setStatus(updatedRequest.getStatus());
@@ -44,6 +44,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
             return repository.save(existing);
         }).orElseThrow(() -> new RuntimeException("Request not found"));
     }
+
 
     @Override
     public void deleteRequest(Long id) {
