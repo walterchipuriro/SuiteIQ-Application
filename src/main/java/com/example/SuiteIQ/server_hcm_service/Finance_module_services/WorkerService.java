@@ -18,5 +18,11 @@ public interface WorkerService {
         List<Payment> getPaymentsProcessedByWorker(Long workerId);
 
         boolean authenticate(String username, String password);
+
+        void registerWorker(Worker worker);
+
+        void initiatePasswordReset(String emailOrUsername);
+
+        void resetPassword(String token, String newPassword);
 }
 

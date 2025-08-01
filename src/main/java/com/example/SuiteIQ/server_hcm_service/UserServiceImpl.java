@@ -73,5 +73,15 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    public void updatePasswordByEmail(String email, String newPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPassword(passwordEncoder.encode(newPassword)); // bcrypt
+            userRepository.save(user);
+        }
+    }
+
+
 }
 

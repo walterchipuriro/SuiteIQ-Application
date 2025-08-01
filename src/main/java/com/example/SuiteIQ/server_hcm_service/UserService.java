@@ -8,4 +8,5 @@ public interface UserService {
     User registerUser(User user);
     Optional<User> findByUsername(String username);
 
+    void updatePasswordByEmail(String email, String newPassword);
 }

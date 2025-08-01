@@ -18,4 +18,6 @@ public interface WorkerRepository extends JpaRepository<Worker, Long> {
 
     Optional<Worker> findByUsernameAndPassword(String username, String password);
 
+    Optional<Worker> findByResetToken(String resetToken);
+
 }

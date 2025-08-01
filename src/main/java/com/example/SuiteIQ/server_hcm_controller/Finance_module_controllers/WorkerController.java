@@ -3,10 +3,13 @@ package com.example.SuiteIQ.server_hcm_controller.Finance_module_controllers;
 import com.example.SuiteIQ.dtos.LoginRequest;
 import com.example.SuiteIQ.server_hcm_domain.Worker;
 import com.example.SuiteIQ.server_hcm_service.Finance_module_services.WorkerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/workers")
@@ -60,5 +63,41 @@ public class WorkerController {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
     }
+
+    @Autowired
+    private WorkerService WorkerService;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Worker worker) {
+        workerService.registerWorker(worker);
+        return ResponseEntity.ok("Worker registered successfully");
+    }
+
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> payload) {
+        String emailOrUsername = payload.get("usernameOrEmail");
+        try {
+            workerService.initiatePasswordReset(emailOrUsername);
+            return ResponseEntity.ok("Reset token sent (check logs for now)");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> payload) {
+        String token = payload.get("token");
+        String newPassword = payload.get("newPassword");
+
+        try {
+            workerService.resetPassword(token, newPassword);
+            return ResponseEntity.ok("Password successfully updated.");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
 
 }

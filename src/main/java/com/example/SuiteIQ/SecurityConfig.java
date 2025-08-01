@@ -23,10 +23,6 @@ public class SecurityConfig {
         this.userRepository = userRepository;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -53,7 +49,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // 👈 Allow access to all endpoints
+                        .anyRequest().permitAll() //  Allow access to all endpoints
                 )
                 .csrf(csrf -> csrf.disable()); // Disable CSRF for easier testing (e.g. Postman)
 
@@ -64,4 +60,10 @@ public class SecurityConfig {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }
