@@ -16,5 +16,7 @@ public interface WorkerService {
         // Optional:
         double getTotalCollectedByWorker(Long workerId);
         List<Payment> getPaymentsProcessedByWorker(Long workerId);
-    }
+
+        boolean authenticate(String username, String password);
+}
 

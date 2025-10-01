@@ -49,29 +49,17 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // 🛡️ Session policies are applied
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // 👈 Allow access to all endpoints
                 )
-                .sessionManagement(session -> session
-                        .invalidSessionUrl("/login?invalid=true")
-                )
-                .sessionManagement(session -> session
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true)
-                        .expiredUrl("/login?expired=true")
-                )
-                .csrf(csrf -> csrf.disable()); // Add this if you’re using Postman or testing without CSRF token
+                .csrf(csrf -> csrf.disable()); // Disable CSRF for easier testing (e.g. Postman)
 
         return http.build();
     }
 
-
-    // Needed to track session destroy events (used to manage max sessions)
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();

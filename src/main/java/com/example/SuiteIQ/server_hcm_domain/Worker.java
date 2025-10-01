@@ -14,9 +14,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Worker
-
-{
+public class Worker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +22,21 @@ public class Worker
 
     private String fullName;
 
+    private String username;      // New
+
+    private String dateOfBirth;   // New — store as String or better as LocalDate if you want
+
+    private String nationalId;    // New
+
+    private String homeAddress;   // New
+
     private String role; // e.g., Receptionist, Manager, Cashier
 
     private String email;
 
     private String phone;
 
+    private String password;
+
     private boolean active = true;
-
-
 }

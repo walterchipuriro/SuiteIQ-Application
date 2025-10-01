@@ -35,5 +35,9 @@ public class User {
     @Column(name = "lock_time")
     private LocalDateTime lockTime;
 
+    @OneToOne
+    @JoinColumn(name = "worker_id")
+    private Worker worker;
+
 }
 
